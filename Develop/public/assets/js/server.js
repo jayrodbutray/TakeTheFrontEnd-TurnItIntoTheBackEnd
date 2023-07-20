@@ -1,7 +1,10 @@
 const express = require('express');
-const path = require('path');
-
-
 
 const app = express();
-const PORT = 3001;
+
+app.get('/ping', (req, res) => {
+    res.send('pong');
+});
+app.listen(3001, () => {
+    console.log('server is running');
+})
