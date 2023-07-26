@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const path= require('path');
 const noteData = require('./db/db.json');
-const fs = require('fs');
+
 
 
 const app = express();
@@ -20,11 +20,22 @@ app.get('/', (req, res) => res.send("Click button to start adding notes"));
 
 app.get('/api/notes', (req, res) => res.json(noteData));
 
+const notes = [];
 app.post('/api/notes', (req, res) => {
 
-    res.json(`${req.method} request received to add a note`);
   
     const { title, text } = req.body;
+    if (!title || !text){
+        return res.status(400).json({error: 'Title and Text both required.'});
+    }
+
+    const newNotes = {title, text};
+    notes.push(newNotes);
+
+    const fs = require('fs');
+    fs.writeFileSync('notes.json', JSON.stringify(notes, null, 2));
+    
+    res.json({message: 'Note saved.', note: newNotes});
   });
 
 app.listen(3001, () => {
