@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const path= require('path');
 const noteData = require('./db/db.json');
-
+const { v4: uuidv4 } = require('uuid');
 
 
 const app = express();
@@ -29,13 +29,25 @@ app.post('/api/notes', (req, res) => {
         return res.status(400).json({error: 'Title and Text both required.'});
     }
 
-    const newNotes = {title, text};
-    notes.push(newNotes);
+    const newNotes = {
+        id: uuidv4(),
+        title, 
+        text
+    };
+    noteData.push(newNotes);
 
     const fs = require('fs');
-    fs.writeFileSync('notes.json', JSON.stringify(notes, null, 2));
     
-    res.json({message: 'Note saved.', note: newNotes});
+    fs.writeFile('./db/db.json', JSON.stringify(noteData, null, 2), (err) => {
+      if (err) {
+        console.error('Error writing file:', err);
+      } else {
+        console.log('File written successfully.');
+      }
+    });
+    
+
+    res.json(newNotes);
   });
 
 app.listen(3001, () => {
