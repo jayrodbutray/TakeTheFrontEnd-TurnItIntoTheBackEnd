@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const path= require('path');
 const noteData = require('./db/db.json');
+const fs = require('fs');
 
 
 const app = express();
@@ -23,8 +24,7 @@ app.post('/api/notes', (req, res) => {
 
     res.json(`${req.method} request received to add a note`);
   
-
-    console.info(`${req.method} request received to add a note`);
+    const { title, text } = req.body;
   });
 
 app.listen(3001, () => {
