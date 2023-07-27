@@ -50,6 +50,6 @@ app.post('/api/notes', (req, res) => {
     res.json(newNotes);
   });
 
-app.listen(3001, () => {
+app.listen(PORT, () => {
     console.log('server is running');
 });
