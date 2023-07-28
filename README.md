@@ -6,4 +6,4 @@
 
 [Link to github repository](https://github.com/jayrodbutray/TakeTheFrontEnd-TurnItIntoTheBackEnd)
 
-[Link to deployed Heroku application](https://git.heroku.com/notetakerforallyouprofessional.git)
+[Link to deployed Heroku application](https://notetakerforallyouprofessional-645b7024c373.herokuapp.com/)
